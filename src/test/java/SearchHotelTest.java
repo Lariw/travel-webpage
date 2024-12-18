@@ -33,10 +33,23 @@ public class SearchHotelTest {
 
         driver.get("http://www.kurs-selenium.pl/demo/");
         driver.findElement(By.cssSelector("input[name='checkin']")).click();
-        driver.findElement(By.xpath("/html/body/div[9]/div[1]/table/tbody/tr[5]/td[1]")).click();
-        driver.findElement(By.xpath("/html/body/div[10]/div[1]/table/tbody/tr[5]/td[3]")).click();
+        driver.findElements(By.xpath("//td[@class='day ' and text()='25']"))
+                        .stream()
+                        .filter(el -> el.isDisplayed())
+                        .findFirst()
+                        .ifPresent(el -> el.click());
+
+        driver.findElement(By.cssSelector("input[name='checkout']")).click();
+        driver.findElements(By.xpath("//td[@class='day ' and text()='30']"))
+                        .stream()
+                        .filter(el -> el.isDisplayed())
+                        .findFirst()
+                        .ifPresent(el -> el.click());
+
         driver.findElement(By.cssSelector("input[name='travellers']")).click();
         driver.findElement(By.id("adultMinusBtn")).click();
+        driver.findElement(By.id("adultPlusBtn")).click();
+        driver.findElement(By.id("adultPlusBtn")).click();
         driver.findElement(By.id("adultPlusBtn")).click();
         driver.findElement(By.cssSelector(".btn.btn-lg.btn-block.btn-primary.pfb0.loader")).click();
 
